@@ -8,14 +8,14 @@ plugins {
 }
 
 android {
-    namespace = "com.andy.qrcamtest"
+    namespace = "com.andy.qrscannerandy"
     compileSdk = 35
 
     defaultConfig {
-        applicationId = "com.andy.qrcamtest"
+        applicationId = "com.andy.qrscannerandy"
         minSdk = 26
         targetSdk = 35
-        versionCode = 1
+        versionCode = 3
         versionName = "1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
@@ -26,11 +26,15 @@ android {
 
     buildTypes {
         release {
-            isMinifyEnabled = false
+            isMinifyEnabled = true
+            isShrinkResources = true
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
             )
+            ndk {
+                debugSymbolLevel = "FULL"
+            }
         }
     }
     compileOptions {
@@ -42,6 +46,17 @@ android {
     }
     buildFeatures {
         compose = true
+    }
+    bundle {
+        abi {
+            enableSplit = true
+        }
+        density {
+            enableSplit = true
+        }
+        language {
+            enableSplit = false
+        }
     }
 }
 
@@ -73,11 +88,15 @@ dependencies {
     implementation(libs.androidx.camera.lifecycle)
     implementation(libs.androidx.camera.camera2)
 
+    //
+    implementation(libs.accompanist.permissions)
+
     //room
     implementation(libs.androidx.room.runtime)
     implementation(libs.androidx.room.common.jvm)
     implementation(libs.androidx.ui.test.junit4.android)
     implementation(libs.ads.mobile.sdk)
+    implementation(libs.androidx.camera.view)
     annotationProcessor(libs.androidx.room.compiler)
     implementation(libs.androidx.room.ktx)
     ksp(libs.androidx.room.compiler)
