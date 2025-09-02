@@ -25,6 +25,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableFloatStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
@@ -55,7 +56,7 @@ fun CameraPreview(
 
     var camera by remember { mutableStateOf<androidx.camera.core.Camera?>(null) }
     var torchEnabled by remember { mutableStateOf(false) }
-    var zoomRatio by remember { mutableStateOf(1f) }
+    var zoomRatio by remember { mutableFloatStateOf(1f) }
 
     LaunchedEffect(Unit) {
         val cameraProvider = cameraProviderFuture.get()

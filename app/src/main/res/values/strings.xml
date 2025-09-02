@@ -1,5 +1,17 @@
 <resources>
 
+    <string name="home">Home</string>
+    <string name="history">Historial</string>
+
+    <string name="cant_open_contacts">No se pudo abrir contactos</string>
+    <string name="connected_to_wifi">Conectado a %s</string>
+    <string name="not_connected_to_wifi">No se pudo conectar a %s</string>
+    <string name="invalid_qr_wifi">QR de WiFi inválido</string>
+    <string name="cant_open_sms">No se pudo abrir SMS</string>
+    <string name="cant_open_event">No se pudo agregar el evento</string>
+    <string name="sms_info">Número: %1$s\nMensaje: %2$s</string>
+
+
     <string name="app_name">QR Scanner</string>
     <string name="align_qr">Alinea el QR dentro del recuadro</string>
     <string name="delete">🗑 Eliminar</string>>
@@ -15,7 +27,10 @@
     <string name="invalid_email">Email invalido</string>
     <string name="reset_scan">Escanear otro QR</string>
     <string name="share_qr">Compartir QR</string>
+    <string name="copy">Copiar</string>
+    <string name="share">Compartir</string>
+    <string name="no_history">No escaneaste ningún QR todavia :(</string>
     <string name="camera_need_permission">Se necesita permiso de cámara para escanear QR</string>
-
+    <string name="type">Tipo: %s</string>
 
 </resources>

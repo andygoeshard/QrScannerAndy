@@ -1,6 +1,9 @@
 package com.andy.qrscannerandy.ui.viewmodel
 
 import android.app.Application
+import android.content.Intent
+import android.widget.Toast
+import androidx.compose.ui.text.AnnotatedString
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.viewModelScope
 import com.andy.qrscannerandy.domain.model.QrScan
@@ -39,6 +42,31 @@ class HistoryViewModel(
             repository.deleteScan(id)
         }
     }
+
+    fun  shareContent(text: String) {
+
+        val shareText = """
+    📦 ¡Han compartido el contenido de un QR contigo!
+    
+    Contenido:
+    🔗 $text
+    
+    Compartido desde QR Scanner de Andy 🟢
+""".trimIndent()
+
+        val context = getApplication<Application>().applicationContext
+        val intent = Intent().apply {
+            action = Intent.ACTION_SEND
+            putExtra(Intent.EXTRA_TEXT, shareText)
+            type = "text/plain"
+        }
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+        val chooser = Intent.createChooser(intent, "Compartir QR con...")
+        chooser.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+        context.startActivity(chooser)
+    }
+
+
 
 }
 data class HistoryUiState(

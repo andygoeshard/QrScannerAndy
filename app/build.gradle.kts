@@ -15,9 +15,8 @@ android {
         applicationId = "com.andy.qrscannerandy"
         minSdk = 26
         targetSdk = 35
-        versionCode = 3
-        versionName = "1.0"
-
+        versionCode = 4
+        versionName = "1.2"
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables {
             useSupportLibrary = true
@@ -95,7 +94,6 @@ dependencies {
     implementation(libs.androidx.room.runtime)
     implementation(libs.androidx.room.common.jvm)
     implementation(libs.androidx.ui.test.junit4.android)
-    implementation(libs.ads.mobile.sdk)
     implementation(libs.androidx.camera.view)
     annotationProcessor(libs.androidx.room.compiler)
     implementation(libs.androidx.room.ktx)

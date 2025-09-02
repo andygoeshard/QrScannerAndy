@@ -1,5 +1,6 @@
 package com.andy.qrscannerandy.domain.helper
 
+import android.content.ClipData
 import android.content.Context
 import android.content.Intent
 import android.net.ConnectivityManager
@@ -18,6 +19,8 @@ import com.andy.qrscannerandy.domain.model.QrScan
 import com.andy.qrscannerandy.domain.model.QrType
 import java.text.SimpleDateFormat
 import java.util.Locale
+import android.content.ClipboardManager
+import com.andy.qrscannerandy.R
 
 fun parseVCard(qrContent: String): Pair<String?, String?> {
     val nameRegex = Regex("FN:(.*)", RegexOption.IGNORE_CASE)
@@ -42,7 +45,7 @@ fun openContact(qrContent: String, context: Context) {
     try {
         context.startActivity(intent)
     } catch (e: Exception) {
-        Toast.makeText(context, "No se pudo abrir contactos", Toast.LENGTH_SHORT).show()
+        Toast.makeText(context, context.getString(R.string.cant_open_contacts), Toast.LENGTH_SHORT).show()
     }
 }
 
@@ -73,16 +76,18 @@ fun connectToWifi(qrContent: String, context: Context) {
             context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
         connectivityManager.requestNetwork(request, object : ConnectivityManager.NetworkCallback() {
             override fun onAvailable(network: Network) {
+                val message = context.getString(R.string.connected_to_wifi, ssid)
                 connectivityManager.bindProcessToNetwork(network)
-                Toast.makeText(context, "Conectado a $ssid", Toast.LENGTH_SHORT).show()
+                Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
             }
 
             override fun onUnavailable() {
-                Toast.makeText(context, "No se pudo conectar a $ssid", Toast.LENGTH_SHORT).show()
+                val message = context.getString(R.string.not_connected_to_wifi, ssid)
+                Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
             }
         })
     } else {
-        Toast.makeText(context, "QR de WiFi inválido", Toast.LENGTH_SHORT).show()
+        Toast.makeText(context, context.getString(R.string.invalid_qr_wifi), Toast.LENGTH_SHORT).show()
     }
 }
 
@@ -130,7 +135,7 @@ fun sendSms(qrContent: String, context: Context) {
     try {
         context.startActivity(intent)
     } catch (e: Exception) {
-        Toast.makeText(context, "No se pudo abrir SMS", Toast.LENGTH_SHORT).show()
+        Toast.makeText(context, context.getString(R.string.cant_open_sms), Toast.LENGTH_SHORT).show()
     }
 }
 
@@ -160,7 +165,7 @@ fun addCalendarEvent(qrContent: String, context: Context) {
     try {
         context.startActivity(intent)
     } catch (e: Exception) {
-        Toast.makeText(context, "No se pudo agregar el evento", Toast.LENGTH_SHORT).show()
+        Toast.makeText(context, context.getString(R.string.cant_open_event), Toast.LENGTH_SHORT).show()
     }
 }
 
@@ -204,5 +209,12 @@ fun formatQrContentForDisplay(scan: QrScan): String {
         }
         else -> scan.content
     }
+}
+
+fun copyToClipboard(context: Context, text: String) {
+    val clipboard = context.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
+    val clip = ClipData.newPlainText("QR Content", text)
+    clipboard.setPrimaryClip(clip)
+    Toast.makeText(context, "Copiado al portapapeles", Toast.LENGTH_SHORT).show()
 }
 
