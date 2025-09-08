@@ -221,8 +221,6 @@ fun textUrl(
             }
     )
 }
-
-
 @Composable
 fun DataTransferAnimation(
     onAnimationComplete: () -> Unit
@@ -235,20 +233,12 @@ fun DataTransferAnimation(
             1f,
             animationSpec = tween(durationMillis = 1500, easing = LinearEasing)
         )
-
-        // Add a delay to create a pause before the next animation
         delay(300)
-
-        // After progress completes, start the expansion animation
         expandAnimatable.animateTo(
             1f,
             animationSpec = tween(durationMillis = 800, easing = LinearOutSlowInEasing)
         )
-
-        // Add a final delay to allow the fade-out to be visible
         delay(500)
-
-        // Signal completion
         onAnimationComplete()
     }
 
@@ -278,6 +268,13 @@ fun DataTransferAnimation(
                 (size.height - scanBoxSize) / 2
             )
 
+            // ✅ Fondo negro detrás de la animación
+            drawRect(
+                color = Color.Black,
+                topLeft = boxTopLeft,
+                size = androidx.compose.ui.geometry.Size(scanBoxSize, scanBoxSize)
+            )
+
             // Cuadrícula de puntos
             clipRect(
                 left = boxTopLeft.x,
@@ -301,7 +298,7 @@ fun DataTransferAnimation(
                 }
             }
 
-            // Barra de carga con efecto de glitch
+            // Barra de carga con efecto glitch
             val barHeight = 8.dp.toPx()
             val barWidth = scanBoxSize * 0.8f
             val barY = boxTopLeft.y + scanBoxSize * 0.9f
@@ -325,5 +322,6 @@ fun DataTransferAnimation(
                 }
             }
         }
+
     }
 }
